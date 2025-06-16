@@ -220,10 +220,19 @@ body
     box-shadow: none
     > svg
       opacity: .3
+  &[data-active="true"]
+    background-color: var(--ctx-menu-sel-bg, var(--frame-el-active-bg, var(--notice-bg)))
+    > svg
+      opacity: 1
+      fill: var(--ctx-menu-sel-fg, var(--frame-el-active-fg, var(--notice-fg)))
 .BottomBar[data-with-ntb="true"] .tool-btn
   width: var(--bottom-bar-height)
 .Sidebar[data-syncing="true"] .BottomBar .tool-btn.-sync svg
   animation: syncing-animation 1s linear infinite
+.BottomBar .tool-btn.-autoscroll.-on
+  background-color: var(--frame-el-bg-hover, var(--btn-bg-hover))
+  > svg
+    opacity: 1
 .BottomBar .dnd-layer
   height: calc(100% + var(--general-margin))
 

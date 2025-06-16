@@ -3,6 +3,7 @@ import { SETTINGS_OPTIONS } from '../defaults'
 export interface SettingsState {
   // General
   version?: string // DEPR
+  autoScrollEnabled: boolean
   nativeScrollbars: boolean
   nativeScrollbarsThin: boolean
   nativeScrollbarsLeft: boolean
@@ -41,6 +42,7 @@ export interface SettingsState {
   subPanelBookmarks: boolean
   subPanelHistory: boolean
   subPanelSync: boolean
+  subPanelAutoScroll: boolean
 
   // Group page
   groupLayout: (typeof SETTINGS_OPTIONS.groupLayout)[number]

@@ -1212,6 +1212,8 @@ function onTabRemoved(tabId: ID, info: browser.tabs.RemoveInfo, detached?: boole
 
   // On removing the last tab
   if (!Tabs.removingTabs.length) {
+    // Reset the removing flag
+    Tabs.isRemovingTabs = false;
     // Update parent tab state
     if (Settings.state.tabsTree && tab.parentId !== NOID) {
       const parentTab = Tabs.byId[tab.parentId]
@@ -1609,7 +1611,10 @@ function onTabActivated(info: browser.tabs.ActiveInfo): void {
     Tabs.expTabsBranch(tab.parentId)
   }
 
-  if (!tab.pinned) Tabs.scrollToTabDebounced(3, tab.id, true)
+  // Scroll to the activated tab, but not when activating after closing a tab
+  if (!tab.pinned && !Tabs.isRemovingTabs) {
+    Tabs.scrollToTabDebounced(3, tab.id, true)
+  }
 
   // Reset fallback preview mode
   if (Settings.state.previewTabs && Preview.state.modeFallback) {

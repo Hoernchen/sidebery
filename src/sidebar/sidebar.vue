@@ -98,6 +98,12 @@
             @click="Sidebar.openSubPanel(SubPanelType.Sync, activePanel)")
             .dnd-layer(data-dnd-type="sspb")
             svg: use(xlink:href="#icon_sync")
+          .tool-btn.-autoscroll(
+            v-if="Settings.state.subPanelAutoScroll"
+            :class="{ '-on': Settings.state.autoScrollEnabled }"
+            @click="toggleAutoScroll"
+            :title="translate(Settings.state.autoScrollEnabled ? 'bottomBar.autoscroll_on' : 'bottomBar.autoscroll_off')")
+            svg: use(xlink:href="#icon_arrow_down")
 
       SubPanel
 
@@ -108,6 +114,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, Component, nextTick } from 'vue'
+import { translate } from 'src/dict'
 import { PanelType, Panel, MenuType, WheelDirection, DropType } from 'src/types'
 import { SubPanelType } from 'src/types'
 import { NOID } from 'src/defaults'
@@ -163,11 +170,6 @@ let navBarVertical = Settings.state.navBarLayout === 'vertical'
 let navBarLayout = navBarVertical ? Settings.state.navBarSide : Settings.state.navBarLayout
 let navBarLeft = navBarVertical && Settings.state.navBarSide === 'left'
 let navBarRight = navBarVertical && Settings.state.navBarSide === 'right'
-let bottomBar =
-  Settings.state.subPanelRecentlyClosedBar ||
-  Settings.state.subPanelBookmarks ||
-  Settings.state.subPanelHistory ||
-  Settings.state.subPanelSync
 
 function recalcStaticVars() {
   animations = !Settings.state.animations ? 'none' : Settings.state.animationSpeed || 'fast'
@@ -179,11 +181,6 @@ function recalcStaticVars() {
   navBarLayout = navBarVertical ? Settings.state.navBarSide : Settings.state.navBarLayout
   navBarLeft = navBarVertical && Settings.state.navBarSide === 'left'
   navBarRight = navBarVertical && Settings.state.navBarSide === 'right'
-  bottomBar =
-    Settings.state.subPanelRecentlyClosedBar ||
-    Settings.state.subPanelBookmarks ||
-    Settings.state.subPanelHistory ||
-    Settings.state.subPanelSync
 }
 
 Sidebar.reMountSidebar = () => {
@@ -204,6 +201,14 @@ const panels = computed<Panel[]>(() => {
     if (panel) output.push(panel)
   }
   return output
+})
+
+const bottomBar = computed<boolean>(() => {
+  return Settings.state.subPanelRecentlyClosedBar ||
+    Settings.state.subPanelBookmarks ||
+    Settings.state.subPanelHistory ||
+    Settings.state.subPanelSync ||
+    Settings.state.subPanelAutoScroll
 })
 
 function updSidebarEls() {
@@ -479,5 +484,12 @@ function onBSPBDragLeave() {
 
 function onSSPBDragLeave() {
   DnD.reactive.dstType = DropType.Nowhere
+}
+
+function toggleAutoScroll() {
+  Settings.state.autoScrollEnabled = !Settings.state.autoScrollEnabled
+  Settings.saveDebounced(50)
+  // Force re-render to update the button state
+  rrc.value++
 }
 </script>

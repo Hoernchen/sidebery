@@ -63,6 +63,10 @@ section(
       label="Sync sub-panel"
       v-model:value="Settings.state.subPanelSync"
       @update:value="Settings.saveDebounced(150)")
+    ToggleField(
+      label="settings.sub_panel.autoscroll"
+      v-model:value="Settings.state.subPanelAutoScroll"
+      @update:value="Settings.saveDebounced(150)")
 
   InfoField(label="settings.nav_bar_enabled" :inactive="!availableBtns.length").-sub-title
   .sub-fields

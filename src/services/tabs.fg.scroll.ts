@@ -3,10 +3,14 @@ import { Tabs } from './tabs.fg'
 import * as Utils from 'src/utils'
 import * as Logs from 'src/services/logs'
 import { Sidebar } from './sidebar'
+import { Settings } from './settings'
 import { PRE_SCROLL } from 'src/defaults'
 
 const scrollConf: ScrollToOptions = { behavior: 'auto', top: 0 }
 export function scrollToTab(id: ID, smooth?: boolean): void {
+  // Check if autoscroll is disabled
+  if (!Settings.state.autoScrollEnabled) return
+  
   const panel = Sidebar.panelsById[Sidebar.activePanelId]
   if (!Utils.isTabsPanel(panel) || !panel.scrollEl) return
 

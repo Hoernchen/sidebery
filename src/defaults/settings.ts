@@ -2,6 +2,7 @@ import { SettingsState } from '../types/settings'
 
 export const DEFAULT_SETTINGS: SettingsState = {
   // General
+  autoScrollEnabled: true,
   nativeScrollbars: true,
   nativeScrollbarsThin: true,
   nativeScrollbarsLeft: false,
@@ -38,6 +39,7 @@ export const DEFAULT_SETTINGS: SettingsState = {
   subPanelBookmarks: true,
   subPanelHistory: true,
   subPanelSync: false,
+  subPanelAutoScroll: true,
 
   // Group page
   groupLayout: 'grid',

@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { translate } from 'src/dict'
 import { DropType, MenuType, ScrollBoxComponent, TabsPanel } from 'src/types'
 import { WheelDirection } from 'src/types'
@@ -66,10 +66,13 @@ import * as Preview from 'src/services/tabs.preview'
 
 const props = defineProps<{ panel: TabsPanel }>()
 const scrollBox = ref<ScrollBoxComponent | null>(null)
-const bottomBarSpaceNeeded =
-  Settings.state.subPanelRecentlyClosedBar ||
-  Settings.state.subPanelBookmarks ||
-  Settings.state.subPanelHistory
+const bottomBarSpaceNeeded = computed<boolean>(() => {
+  return Settings.state.subPanelRecentlyClosedBar ||
+    Settings.state.subPanelBookmarks ||
+    Settings.state.subPanelHistory ||
+    Settings.state.subPanelSync ||
+    Settings.state.subPanelAutoScroll
+})
 let scrollBoxEl: HTMLElement | null = null
 
 onMounted(() => {

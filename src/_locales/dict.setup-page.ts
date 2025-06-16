@@ -1637,6 +1637,14 @@ Available variables: %B - a list mark (bullet); %CT - custom title or title; %T 
     zh_TW: '歷史子面板',
     ja: '履歴のサブパネル',
   },
+  'settings.sub_panel.autoscroll': {
+    en: 'Auto-scroll toggle button',
+    de: 'Auto-Scroll An/Aus',
+    ru: 'Кнопка автопрокрутки',
+    zh_CN: '自动滚动切换按钮',
+    zh_TW: '自動捲動切換按鈕',
+    ja: '自動スクロール切り替えボタン',
+  },
   'settings.nav_bar_enabled': {
     en: 'Enabled elements',
     de: 'Aktivierte Elemente',

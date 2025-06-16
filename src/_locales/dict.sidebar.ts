@@ -450,6 +450,26 @@ export const sidebarTranslations: Translations = {
   },
 
   // ---
+  // -- Bottom bar
+  // -
+  'bottomBar.autoscroll_on': {
+    en: 'Auto-scroll enabled\nClick to disable',
+    de: 'Auto-Scroll aktiviert\nKlicken zum Deaktivieren',
+    ru: 'Автопрокрутка включена\nНажмите для отключения',
+    zh_CN: '自动滚动已启用\n点击禁用',
+    zh_TW: '自動捲動已啟用\n點擊停用',
+    ja: '自動スクロール有効\nクリックで無効化',
+  },
+  'bottomBar.autoscroll_off': {
+    en: 'Auto-scroll disabled\nClick to enable',
+    de: 'Auto-Scroll deaktiviert\nKlicken zum Aktivieren',
+    ru: 'Автопрокрутка отключена\nНажмите для включения',
+    zh_CN: '自动滚动已禁用\n点击启用',
+    zh_TW: '自動捲動已停用\n點擊啟用',
+    ja: '自動スクロール無効\nクリックで有効化',
+  },
+
+  // ---
   // -- Drag and Drop tooltips
   // -
   'dnd.tooltip.bookmarks_panel': {

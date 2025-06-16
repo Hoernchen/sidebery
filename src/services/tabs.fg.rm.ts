@@ -204,6 +204,9 @@ export async function removeTabs(
 
   Tabs.sortTabIds(tabIds)
 
+  // Set flag to prevent scrolling during tab removal
+  Tabs.isRemovingTabs = true
+
   const rmChildTabsFolded = Settings.state.rmChildTabs === 'folded'
   const rmChildTabsFoldedAll = Settings.state.rmChildTabs === 'all'
   const tabsMap: Record<ID, Tab> = {}
@@ -326,9 +329,10 @@ export async function removeTabs(
     })
   }
 
-  if (!Selection.isSet() && visibleLen > 0) {
-    Tabs.incrementScrollRetainer(panel, lastTabToo ? visibleLen - 1 : visibleLen)
-  }
+  // Disabled scroll retainer to prevent unwanted scrolling when closing tabs
+  // if (!Selection.isSet() && visibleLen > 0) {
+  //   Tabs.incrementScrollRetainer(panel, lastTabToo ? visibleLen - 1 : visibleLen)
+  // }
 
   // Reverse removing order (needed for reopening)
   toRemove.reverse()
@@ -445,6 +449,11 @@ export function checkRemovedTabs(delay = 750): void {
     }
 
     await Promise.all(checking)
+
+    // Reset the flag when all tabs are removed
+    if (Tabs.removingTabs.length === 0) {
+      Tabs.isRemovingTabs = false
+    }
 
     for (const panelId of panelIds) {
       Sidebar.recalcVisibleTabs(panelId)
